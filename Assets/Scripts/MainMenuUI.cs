@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ public class MainMenuUI : MonoBehaviour
 
     // uses mask image to fade in and out effect
     public RectMask2D maskImg;
+
+    public TextMeshProUGUI versionText;
 
     private float m_currentMaskFadeLeft;
 
@@ -48,9 +51,10 @@ public class MainMenuUI : MonoBehaviour
             yield return null;
         }
     }
-    
+
     void Start()
     {
         m_currentMaskFadeLeft = maskImg.padding.x;
+        versionText.text = "version: " + Application.version;
     }
 }
