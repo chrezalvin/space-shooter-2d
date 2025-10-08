@@ -1,0 +1,92 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ShipBehaviour : MonoBehaviour
+{
+    public GameObject bulletPrefab;
+    public GameObject playerShield;
+    public List<Transform> mainFirePoint;
+    public List<Transform> secondaryFirePoint;
+
+    public AudioClip shootSfx;
+    public AudioClip shootRelatedSfx;
+    public AudioClip shieldUpSfx;
+    public AudioClip shieldDownSfx;
+
+    protected Ship m_ship;
+
+    protected float m_nextFireTime = 0f;
+
+    public void Init(Ship ship)
+    {
+        m_ship = ship;
+        playerShield.SetActive(m_ship.shielded);
+    }
+
+    void Update()
+    {
+        m_nextFireTime -= Time.deltaTime;
+    }
+
+    public virtual void TryShoot()
+    {
+        if (m_nextFireTime > 0f)
+            return;
+
+        foreach (Transform firePoint in mainFirePoint)
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+        if (m_ship.isMultiShotActive)
+        {
+            // if triple shot, shoot from secondary fire points as well
+            foreach (Transform firePoint in secondaryFirePoint)
+                Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        }
+
+        Debug.Log("Shoot");
+
+        if (shootSfx && Camera.main)
+            AudioSource.PlayClipAtPoint(shootSfx, Camera.main.transform.position);
+
+        m_nextFireTime = m_ship.GetAttackSpeed();
+    }
+
+    public virtual void SetShield(bool active)
+    {
+        playerShield.SetActive(active);
+        m_ship.shielded = active;
+
+        if (Camera.main)
+            AudioSource.PlayClipAtPoint(active ? shieldUpSfx : shieldDownSfx, Camera.main.transform.position);
+    }
+
+    public virtual void SetOverShield(bool active)
+    {
+        m_ship.isOverShieldActive = active;
+
+        if (Camera.main)
+            AudioSource.PlayClipAtPoint(active ? shieldUpSfx : shieldDownSfx, Camera.main.transform.position);
+    }
+
+    public virtual void ApplyMultiShot(bool active)
+    {
+        if (active && Camera.main)
+            AudioSource.PlayClipAtPoint(shootRelatedSfx, Camera.main.transform.position);
+        m_ship.isMultiShotActive = active;
+    }
+
+    public virtual void ApplyRapidShot(bool active)
+    {
+        if (active && Camera.main)
+            AudioSource.PlayClipAtPoint(shootRelatedSfx, Camera.main.transform.position);
+        m_ship.isRapidShotActive = active;
+    }
+
+    // this is meant to be overriden
+    public virtual void ApplyEvolve(BuffManager buffManager, BuffDatabase buffDatabase)
+    {
+        m_ship.isEvolved = true;
+    }
+
+    public Ship GetShip() { return m_ship; }
+}

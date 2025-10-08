@@ -1,0 +1,11 @@
+public enum BuffType
+{
+    SHIELDED,
+    RAPID_SHOT,
+    MULTI_SHOT,
+    OVERSHIELD,
+    DEFAULT_EVOLVE,
+    HORNET_EVOLVE,
+    MINE_EVOLVE,
+    TRIDENT_EVOLVE
+}

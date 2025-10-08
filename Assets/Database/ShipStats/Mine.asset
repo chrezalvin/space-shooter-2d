@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c763ad2969699244978aa54756a1986, type: 3}
+  m_Name: Mine
+  m_EditorClassIdentifier: 
+  hp: 8
+  attackSpeed: 0.8
+  movementSpeed: 5
+  shipName: Mine
+  description: Tanky and great for crowd control, but slow
+  evolveBuff: {fileID: 11400000, guid: 6a698a690cf3547498b58f0d68746aed, type: 2}
+  shielded: 0
+  isMultiShotActive: 0
+  isRapidShotActive: 0

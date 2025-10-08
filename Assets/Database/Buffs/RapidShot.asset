@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b13f90644f7b54ea4bbd5851fbb9d7, type: 3}
+  m_Name: RapidShot
+  m_EditorClassIdentifier: 
+  buffType: 1
+  icon: {fileID: 21300000, guid: 42c19d66057ae764a9c11c0d91654a77, type: 3}
+  buffName: Rapid Shot
+  description: Coldown time is reduced by half
+  buffScriptable: {fileID: 11400000, guid: a6fa3c946d34fab43871a4fa9f1e48ca, type: 2}
