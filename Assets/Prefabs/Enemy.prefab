@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 246075679549959216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7675623, y: 0.7675623, z: 1}
+  m_LocalScale: {x: 1.5598733, y: 1.5598733, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d80794085f056b4d8117084a58685af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4.576663
-  enemyScale: 0.7675623
+  moveSpeed: 3.2736232
+  enemyScale: 1.5598733
   explosionPrefab: {fileID: 8678014495538770240, guid: 26ac43ce3e5efee4db69bf555d7c0032, type: 3}
   explosionSfx: {fileID: 8300000, guid: b6e31425cd9dfd34fb2eb73cbd539a66, type: 3}
 --- !u!58 &4873681578670982145

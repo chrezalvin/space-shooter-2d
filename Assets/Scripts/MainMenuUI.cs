@@ -14,6 +14,8 @@ public class MainMenuUI : MonoBehaviour
 
     public TextMeshProUGUI versionText;
 
+    public GameObject chooseShipMenu;
+
     private float m_currentMaskFadeLeft;
 
     public void LoadBattleScene()
@@ -28,6 +30,13 @@ public class MainMenuUI : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    public void OpenChooseShipMenu()
+    {
+        // open choose ship menu
+        if (chooseShipMenu)
+            chooseShipMenu.gameObject.SetActive(true);
     }
 
     private IEnumerator FadeAndLoadScene(string sceneName)

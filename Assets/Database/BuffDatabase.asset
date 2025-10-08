@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5bd4e4f4d0d7834baf94692fe3ff301, type: 3}
+  m_Name: BuffDatabase
+  m_EditorClassIdentifier: 
+  allBuffs:
+  - {fileID: 11400000, guid: 5999688ab21f9c6408d5a02ed312b6da, type: 2}
+  - {fileID: 11400000, guid: 58fac575d0422234691024220827db0d, type: 2}
+  - {fileID: 11400000, guid: f9a24202b272b7f4685ef75252b0c1ab, type: 2}
+  - {fileID: 11400000, guid: 02eece7b74b2ac642a5280026b6dacc2, type: 2}
+  - {fileID: 11400000, guid: d4e5b0881637dc34984c7249a983ed97, type: 2}
+  - {fileID: 11400000, guid: da73a3bbd12932e48a7dd5cefe5aaf0e, type: 2}
+  - {fileID: 11400000, guid: 6a698a690cf3547498b58f0d68746aed, type: 2}
+  - {fileID: 11400000, guid: 176aacb78b381b74cb9f131b7fa3bf8b, type: 2}
+  - {fileID: 11400000, guid: 58fac575d0422234691024220827db0d, type: 2}

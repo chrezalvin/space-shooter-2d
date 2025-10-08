@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1281f869b4b3eab41af298c15d360cf8, type: 3}
+  m_Name: ShipDatabase
+  m_EditorClassIdentifier: 
+  allShips:
+  - shipName: Default
+    ship: {fileID: 11400000, guid: 09c9bd0f52c0d09449807586b7c967a1, type: 2}
+    shipIcon: {fileID: 21300000, guid: 4d17f5560e12f6048b426fbab8a3b28f, type: 3}
+    shipPrefab: {fileID: 8558786229557960064, guid: 07c035e2d83f0154a9e23686761944ae, type: 3}
+  - shipName: Hornet
+    ship: {fileID: 11400000, guid: 66aa87cd658728d4faabd8a4f233ebf1, type: 2}
+    shipIcon: {fileID: 21300000, guid: df7ac684846a4104882d0bf938c10143, type: 3}
+    shipPrefab: {fileID: 8558786229557960064, guid: f39e638c109304d48b9c9e5624e2e0b3, type: 3}
+  - shipName: Mine
+    ship: {fileID: 11400000, guid: 7f29484122dc9e04494c5dc2e316b847, type: 2}
+    shipIcon: {fileID: 21300000, guid: be8bec19cf881744cb8e5fc98099ad9a, type: 3}
+    shipPrefab: {fileID: 8558786229557960064, guid: ee7ea6f6310936c4a9a8f57e7c871d72, type: 3}
+  - shipName: Trident
+    ship: {fileID: 11400000, guid: 4f1186b911a90b344aaca91fd919be0a, type: 2}
+    shipIcon: {fileID: 21300000, guid: c408748e0a58b8e44b5720984d31ba2c, type: 3}
+    shipPrefab: {fileID: 8558786229557960064, guid: 7531be2cb96a95047894b2c050badf0a, type: 3}

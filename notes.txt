@@ -1,0 +1,3 @@
+- add dodge/teleport mechanic
+- fix bug where spawn is held out when getting buff
+- make it easier to get other powerup once one powerup taken
