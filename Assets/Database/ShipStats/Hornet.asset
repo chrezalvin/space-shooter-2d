@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Hornet
   m_EditorClassIdentifier: 
   hp: 3
-  attackSpeed: 0.25
-  movementSpeed: 15
+  attackSpeed: 0.3
+  movementSpeed: 12
   shipName: Hornet
   description: Fast and nimble ship specialized in rapid destruction
   evolveBuff: {fileID: 11400000, guid: da73a3bbd12932e48a7dd5cefe5aaf0e, type: 2}

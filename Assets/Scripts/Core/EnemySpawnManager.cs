@@ -1,23 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawnManager : SpawnManager
 {
     public GameObject enemyPrefab;
 
-    public float minEnemySpeed = 1f;
-    public float maxEnemySpeed = 5f;
+    public float baseMinEnemySpeed = 1f;
+    public float baseMaxEnemySpeed = 5f;
 
-    public float minEnemySize = 0.5f;
-    public float maxEnemySize = 2f;
+    public float baseMinEnemySize = 0.5f;
+    public float baseMaxEnemySize = 2f;
 
-    public int minSpawnCount = 1;
-    public int maxSpawnCount = 3;
+    public int baseMinSpawnCount = 1;
+    public int baseMaxSpawnCount = 3;
 
-    public float spawnInterval = 2f;
+    public float baseSpawnInterval = 2f;
 
     private float m_timer = 0f;
+    private int m_currentDifficultyMultiplier = 1;
+
+    private const float EULER_NUMBER = 2.71828182845904523536f; 
+
+    // Update is called once per frame
+    public override void Update()
+    {
+        m_timer += Time.deltaTime;
+        if (m_timer >= baseSpawnInterval)
+        {
+            m_timer = 0f;
+            int spawnCount = Random.Range(baseMinSpawnCount, baseMaxSpawnCount + 1);
+            for (int iii = 0; iii < spawnCount; ++iii)
+                SpawnEnemy();
+
+            Debug.Log($"Spawned {spawnCount} enemies.");
+        }
+
+        base.Update();
+    }
 
     private GameObject SpawnEnemy()
     {
@@ -31,31 +49,27 @@ public class EnemySpawnManager : SpawnManager
 
         GameObject enemy = this.SpawnObject(enemyPrefab, from, to);
         EnemyBehaviour enemyBehaviour = enemy.GetComponent<EnemyBehaviour>();
-        if (enemyBehaviour)
+        if (enemyBehaviour) {
             enemyBehaviour.Init(
-                Random.Range(minEnemySpeed, maxEnemySpeed),
-                Random.Range(minEnemySize, maxEnemySize)
+                Random.Range(baseMinEnemySpeed, baseMaxEnemySpeed),
+                Random.Range(baseMinEnemySize, baseMaxEnemySize)
             );
+        }
         else
             Debug.LogError("Enemy prefab does not have an EnemyBehaviour component.");
 
         return enemy;
     }
 
-    // Update is called once per frame
-    public override void Update()
+    public int SetDifficultyMultiplier(int multiplier)
     {
-        m_timer += Time.deltaTime;
-        if (m_timer >= spawnInterval)
-        {
-            m_timer = 0f;
-            int spawnCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
-            for (int iii = 0; iii < spawnCount; ++iii)
-                SpawnEnemy();
+        m_currentDifficultyMultiplier = Mathf.Max(1, multiplier);
 
-            Debug.Log($"Spawned {spawnCount} enemies.");
-        }
+        return m_currentDifficultyMultiplier;
+    }
 
-        base.Update();
+    public int GetDifficultyMultiplier()
+    {
+        return m_currentDifficultyMultiplier;
     }
 }

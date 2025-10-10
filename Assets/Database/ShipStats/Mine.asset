@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c763ad2969699244978aa54756a1986, type: 3}
   m_Name: Mine
   m_EditorClassIdentifier: 
-  hp: 8
-  attackSpeed: 0.8
+  hp: 7
+  attackSpeed: 0.9
   movementSpeed: 5
   shipName: Mine
   description: Tanky and great for crowd control, but slow
@@ -21,3 +21,5 @@ MonoBehaviour:
   shielded: 0
   isMultiShotActive: 0
   isRapidShotActive: 0
+  isOverShieldActive: 0
+  isEvolved: 0

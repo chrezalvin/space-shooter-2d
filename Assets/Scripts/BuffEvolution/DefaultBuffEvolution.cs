@@ -27,7 +27,7 @@ public class DefaultBuffEvolution : EvolutionSystem
     {
         if (activeBuff == null) return;
 
-        activeBuff.totalDuration += 3f;
+        activeBuff.totalDuration *= 2;
         activeBuff.remainingTime = activeBuff.totalDuration;
     }
 }
