@@ -2,13 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameRule : MonoBehaviour
 {
+    public int startingDifficultyMultiplier = 1;
     public static Action<int> OnHPChanged;
-    public static Action<int> OnScoreChanged;
 
-    public int minScoreToEvolve = 50;
+    public int minScoreToEvolve = 300;
+
+    // null if not mobile
+    public JoyStickController joyStickController = null;
+    public EventTrigger shootBtn = null;
 
     public BuffDatabase buffDatabase;
     public ShipDatabase shipDatabase;
@@ -33,6 +38,7 @@ public class GameRule : MonoBehaviour
         BulletBehaviour.OnEnemyHit += HandleEnemyHit;
         PlayerBehaviour.OnPlayerHit += HandlePlayerGetHit;
         PlayerBehaviour.OnBuffCollected += HandleBuffCollected;
+        ScoreManager.OnScoreChanged += HandleScoreChanged;
     }
 
     private void OnDisable()
@@ -40,6 +46,17 @@ public class GameRule : MonoBehaviour
         BulletBehaviour.OnEnemyHit -= HandleEnemyHit;
         PlayerBehaviour.OnPlayerHit -= HandlePlayerGetHit;
         PlayerBehaviour.OnBuffCollected -= HandleBuffCollected;
+        ScoreManager.OnScoreChanged -= HandleScoreChanged;
+    }
+
+    private void HandleScoreChanged(int newScore)
+    {
+        if (newScore > minScoreToEvolve && !m_ship.isEvolved)
+            m_playerBehaviour.GetShipBehaviour().ApplyEvolve(buffManager, buffDatabase);
+
+        // increase difficulty multiplier every 300 score
+        int newDifficultyMultiplier = (newScore / 300) + 1;
+        enemySpawnManager.SetDifficultyMultiplier(newDifficultyMultiplier);
     }
 
     private void HandleBuffCollected(BuffBehaviour buffBehaviour)
@@ -49,8 +66,8 @@ public class GameRule : MonoBehaviour
         // get buffs randomly
         // check if player have shield buff
         Buff buff = buffDatabase.GetRandomAvailableBuff();
-        
-        if(buff.GetBuffType() == BuffType.SHIELDED && m_ship.shielded)
+
+        if (buff.GetBuffType() == BuffType.SHIELDED && m_ship.shielded)
             buff = buffDatabase.GetBuff(BuffType.OVERSHIELD);
 
         buffManager.AddBuff(buff, 5f, buff.GetBuffType() == BuffType.SHIELDED);
@@ -92,13 +109,6 @@ public class GameRule : MonoBehaviour
 
         scoreManager.AddScore(enemy);
         enemyBehaviour.Die();
-
-        int score = scoreManager.GetCurrentScore();
-
-        if (score > minScoreToEvolve && !m_ship.isEvolved)
-            m_playerBehaviour.GetShipBehaviour().ApplyEvolve(buffManager, buffDatabase);
-
-        inGameUIManager.UpdateScore(score);
     }
 
     // Start is called before the first frame update
@@ -129,7 +139,15 @@ public class GameRule : MonoBehaviour
         GameObject shipObject = Instantiate(m_shipPrefab, spawnPosition, Quaternion.identity);
 
         // attach PlayerBehaviour to shipObject
-        m_playerBehaviour = shipObject.AddComponent<PlayerBehaviour>();
+        if(joyStickController && shootBtn)
+        {
+            m_playerBehaviour = shipObject.AddComponent<MobilePlayerBehaviour>();
+            (m_playerBehaviour as MobilePlayerBehaviour).joyStickController = joyStickController;
+            (m_playerBehaviour as MobilePlayerBehaviour).shootBtn = shootBtn;   
+        }
+        else
+            m_playerBehaviour = shipObject.AddComponent<PlayerBehaviour>();
+        // cast to MobilePlayerBehaviour to assign joystick controller
 
         if (m_ship == null || m_playerBehaviour == null)
         {

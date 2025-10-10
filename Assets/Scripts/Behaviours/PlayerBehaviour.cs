@@ -8,17 +8,17 @@ public class PlayerBehaviour : MonoBehaviour
     public static Action<EnemyBehaviour> OnPlayerHit;
     public static Action<BuffBehaviour> OnBuffCollected;
 
-    private Camera m_mainCamera;
+    protected Camera m_mainCamera;
 
-    private ShipBehaviour m_shipBehaviour;
+    protected ShipBehaviour m_shipBehaviour;
 
     // sound effects
-    private SpriteRenderer m_spriteRenderer;
+    protected SpriteRenderer m_spriteRenderer;
 
-    private float m_halfPlayerWidth = 0f;
-    private float m_halfPlayerHeight = 0f;
+    protected float m_halfPlayerWidth = 0f;
+    protected float m_halfPlayerHeight = 0f;
 
-    public void Init(Camera camera, Ship ship)
+    public virtual void Init(Camera camera, Ship ship)
     {
         m_mainCamera = camera;
 
@@ -38,12 +38,24 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogError("Player object does not have a SpriteRenderer component.");
     }
 
-    void Update()
+    protected virtual Vector2 GetMovementInput()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        Vector2 movement = new Vector2(moveX, moveY).normalized;
+        return new Vector2(moveX, moveY).normalized;
+    }
+
+    protected virtual bool IsShooting()
+    {
+        return Input.GetKeyDown(KeyCode.Space);
+    }
+
+    protected void Update()
+    {
+        Vector2 movement = GetMovementInput();
+
+        Debug.Log("movement: " + movement + ", magnitude: " + movement.magnitude);
 
         // updates rotation
         if (movement != Vector2.zero)
@@ -58,15 +70,19 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         // checks for shooting
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (IsShooting())
             m_shipBehaviour.TryShoot();
 
         this.transform.position += m_shipBehaviour.GetShip().GetMovementSpeed() * Time.deltaTime * new Vector3(movement.x, movement.y, 0f);
 
+        // check for nulls
+        Debug.Log("m_shipBehaviour: " + (m_shipBehaviour == null) + ", movement: " + (movement == null));
+
+
         ClampToScreen();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Player collided with " + collision.name);
 
@@ -83,7 +99,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    IEnumerator KnockbackCoroutine(Vector2 source, float duration)
+    public IEnumerator KnockbackCoroutine(Vector2 source, float duration)
     {
         Vector2 knockbackDir = ((Vector2)transform.position - source).normalized;
         float elapsed = 0f;
@@ -106,7 +122,7 @@ public class PlayerBehaviour : MonoBehaviour
         StartCoroutine(KnockbackCoroutine(source, 0.1f));
     }
 
-    void ClampToScreen()
+    protected void ClampToScreen()
     {
         Vector3 currentPos = this.transform.position;
 
@@ -145,12 +161,12 @@ public class PlayerBehaviour : MonoBehaviour
 //     // sound effects
 //     public AudioClip shootSfx;
 
-//     private Ship m_ship;
-//     private SpriteRenderer m_spriteRenderer;
-//     private float m_nextFireTime = 0f;
+//     protected Ship m_ship;
+//     protected SpriteRenderer m_spriteRenderer;
+//     protected float m_nextFireTime = 0f;
 
-//     private float m_halfPlayerWidth = 0f;
-//     private float m_halfPlayerHeight = 0f;
+//     protected float m_halfPlayerWidth = 0f;
+//     protected float m_halfPlayerHeight = 0f;
 
 //     public void Init(Camera camera, Ship ship)
 //     {

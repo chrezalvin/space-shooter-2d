@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4627264583269693210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24, y: 0.799, z: 0}
+  m_LocalPosition: {x: 0.37, y: 0.799, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8558786229557960189}
@@ -136,7 +136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6955872011194381772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.245, y: 0.802, z: 0}
+  m_LocalPosition: {x: -0.38, y: 0.802, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8558786229557960189}
@@ -220,7 +220,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c408748e0a58b8e44b5720984d31ba2c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e9264840c9bfe242805ee568631c8aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -341,8 +341,8 @@ MonoBehaviour:
   - {fileID: 8384694389897567505}
   shootSfx: {fileID: 8300000, guid: 49041c87cfb9bba469b1a9025eb2282e, type: 3}
   shootRelatedSfx: {fileID: 8300000, guid: fae69e17c6fb68d49b8d90dcc5f6dd0c, type: 3}
-  shieldUpSfx: {fileID: 8300000, guid: 03210ae8942886a4792fcaefed255671, type: 3}
-  shieldDownSfx: {fileID: 8300000, guid: f28ed6925937ae141bb6e2d119082553, type: 3}
+  shieldUpSfx: {fileID: 8300000, guid: f28ed6925937ae141bb6e2d119082553, type: 3}
+  shieldDownSfx: {fileID: 8300000, guid: 03210ae8942886a4792fcaefed255671, type: 3}
   piercingBulletPrefab: {fileID: 2581183576368071784, guid: d98db1ec95480224ebb6cb041923d0b3, type: 3}
   evolutionSystem: {fileID: 11400000, guid: c86b0e05df81e8540885d4ed90ac8fd8, type: 2}
 --- !u!1 &8558786230685488222

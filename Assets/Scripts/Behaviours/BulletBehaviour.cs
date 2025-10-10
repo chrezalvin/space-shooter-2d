@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
@@ -37,7 +34,7 @@ public class BulletBehaviour : MonoBehaviour
             m_currentPierceCount++;            
 
             if (m_currentPierceCount > maxPierceCount)
-            Destroy(this.gameObject);
+                Destroy(this.gameObject);
         }
     }
 }

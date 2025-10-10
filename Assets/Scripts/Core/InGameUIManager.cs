@@ -22,7 +22,7 @@ public class InGameUIManager : MonoBehaviour
     private void OnEnable()
     {
         GameRule.OnHPChanged += UpdateHPBar;
-        GameRule.OnScoreChanged += UpdateScore;
+        ScoreManager.OnScoreChanged += UpdateScore;
         BuffManager.OnBuffAdded += OnBuffAdded;
         BuffManager.OnBuffRemoved += OnBuffRemoved;
     }
@@ -30,7 +30,7 @@ public class InGameUIManager : MonoBehaviour
     private void OnDisable()
     {
         GameRule.OnHPChanged -= UpdateHPBar;
-        GameRule.OnScoreChanged -= UpdateScore;
+        ScoreManager.OnScoreChanged -= UpdateScore;
         BuffManager.OnBuffAdded -= OnBuffAdded;
         BuffManager.OnBuffRemoved -= OnBuffRemoved;
     }

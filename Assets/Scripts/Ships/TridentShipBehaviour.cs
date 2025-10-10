@@ -18,13 +18,13 @@ public class TridentShipBehaviour : ShipBehaviour
             return;
 
         foreach (Transform firePoint in mainFirePoint)
-            Instantiate(piercingBulletPrefab, firePoint.position, firePoint.rotation);
+            Instantiate(m_ship.isEvolved ? piercingBulletPrefab : bulletPrefab, firePoint.position, firePoint.rotation);
 
         if (m_ship.isMultiShotActive)
         {
             // if triple shot, shoot from secondary fire points as well
             foreach (Transform firePoint in secondaryFirePoint)
-                Instantiate(piercingBulletPrefab, firePoint.position, firePoint.rotation);
+                Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         }
 
         Debug.Log("Shoot");

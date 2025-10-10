@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c763ad2969699244978aa54756a1986, type: 3}
   m_Name: Trident
   m_EditorClassIdentifier: 
-  hp: 5
+  hp: 4
   attackSpeed: 0.4
   movementSpeed: 10
   shipName: Trident
@@ -21,3 +21,5 @@ MonoBehaviour:
   shielded: 0
   isMultiShotActive: 0
   isRapidShotActive: 0
+  isOverShieldActive: 0
+  isEvolved: 0

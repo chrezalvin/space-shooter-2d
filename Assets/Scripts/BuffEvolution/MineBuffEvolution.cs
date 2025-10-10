@@ -38,8 +38,8 @@ public class MineBuffEvolution : EvolutionSystem
         // implies that the buff added is SHIELDED
         if (buffType == BuffType.SHIELDED || buffType == BuffType.OVERSHIELD)
         {
-            // apply temporary OVERSHIELD if SHIELDED is added or permanent OVERSHIELD if OVERSHIELD is added
-            m_buffManager.AddBuff(m_buffDatabase.GetBuff(BuffType.OVERSHIELD), 5f, buffType == BuffType.OVERSHIELD);
+            // apply temporary OVERSHIELD if SHIELDED is added or x2 duration if OVERSHIELD is added
+            m_buffManager.AddBuff(m_buffDatabase.GetBuff(BuffType.OVERSHIELD), buffType == BuffType.OVERSHIELD ? 10f : 5f);
         }
 
         s_isHandlingBuff = false;
