@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BuffManager : MonoBehaviour
@@ -25,7 +26,7 @@ public class BuffManager : MonoBehaviour
         List<BuffType> buffToRemove = new List<BuffType>();
 
         // don't update the variable in this loop
-        foreach (var buff in m_activeBuffs)
+        foreach (var buff in m_activeBuffs.ToList())
         {
             if (buff.Value.ignoreTimer) continue;
 

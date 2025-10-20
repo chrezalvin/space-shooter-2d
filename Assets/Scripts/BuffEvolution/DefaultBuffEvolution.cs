@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "DefaultBuffEvolution", menuName = "BuffEvolution/DefaultBuffEvolution")]
 public class DefaultBuffEvolution : EvolutionSystem
 {
     private BuffManager m_buffManager;
@@ -29,5 +24,15 @@ public class DefaultBuffEvolution : EvolutionSystem
 
         activeBuff.totalDuration *= 2;
         activeBuff.remainingTime = activeBuff.totalDuration;
+    }
+
+    public override void OnDestroy()
+    {
+        BuffManager.OnBuffAdded -= HandleBuffAdded;
+    }
+
+    public override void OnDisable()
+    {
+        BuffManager.OnBuffAdded -= HandleBuffAdded;
     }
 }

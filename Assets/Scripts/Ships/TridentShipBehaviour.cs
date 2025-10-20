@@ -9,7 +9,7 @@ public class TridentShipBehaviour : ShipBehaviour
     public override void ApplyEvolve(BuffManager buffManager, BuffDatabase buffDatabase)
     {
         evolutionSystem.Evolve(buffManager, buffDatabase);
-        m_ship.isEvolved = true;
+        base.ApplyEvolve(buffManager, buffDatabase);
     }
 
     public override void TryShoot()
@@ -29,8 +29,7 @@ public class TridentShipBehaviour : ShipBehaviour
 
         Debug.Log("Shoot");
 
-        if (shootSfx && Camera.main)
-            AudioSource.PlayClipAtPoint(shootSfx, Camera.main.transform.position);
+        OnShoot?.Invoke();
 
         m_nextFireTime = m_ship.GetAttackSpeed();
     }

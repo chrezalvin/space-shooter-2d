@@ -17,5 +17,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 391bf67cb8391724aa08a74d5d3c705c, type: 3}
   buffName: Over Shield
   description: Gain temporary shield on top of Shield if you obtain Shielded when
-    having a Shielded
+    having a Shielded, Double Over Shield duration
+  buffActiveSfx: {fileID: 8300000, guid: f28ed6925937ae141bb6e2d119082553, type: 3}
+  buffDeactiveSfx: {fileID: 8300000, guid: 03210ae8942886a4792fcaefed255671, type: 3}
   buffScriptable: {fileID: 11400000, guid: 1acbadcfbade65f4bb869e3a5fb45193, type: 2}

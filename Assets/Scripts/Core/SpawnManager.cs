@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     protected Bounds m_boundary;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         m_boundaryCollider = boundary.GetComponent<BoxCollider2D>();
 
@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    virtual public void Update()
+    protected virtual void Update()
     {
         // checks for any spawned object that is out of boundary
         for (int iii = m_spawnedObjects.Count - 1; iii >= 0; --iii)

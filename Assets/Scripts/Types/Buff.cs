@@ -20,6 +20,12 @@ public class Buff : ScriptableObject
     protected string description;
 
     [SerializeField]
+    protected AudioClip buffActiveSfx;
+
+    [SerializeField]
+    protected AudioClip buffDeactiveSfx = null;
+
+    [SerializeField]
     protected BuffScriptable buffScriptable;
 
     public BuffType GetBuffType()
@@ -40,6 +46,16 @@ public class Buff : ScriptableObject
     public Sprite GetIcon()
     {
         return icon;
+    }
+
+    public AudioClip GetBuffActiveSfx()
+    {
+        return buffActiveSfx;
+    }
+
+    public AudioClip GetBuffDeactiveSfx()
+    {
+        return buffDeactiveSfx;
     }
 
     public void ApplyBuff(ShipBehaviour shipBehaviour)

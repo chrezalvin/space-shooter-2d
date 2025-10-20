@@ -16,7 +16,7 @@ public class BuffSpawnManager : SpawnManager
     private float m_timer = 0f;
 
     // Update is called once per frame
-    public override void Update()
+    protected override void Update()
     {
         m_timer += Time.deltaTime;
         if (m_timer >= spawnInterval)

@@ -21,27 +21,12 @@ public class Ship : ScriptableObject
     [SerializeField]
     protected Buff evolveBuff = null;
 
-    public bool shielded = false;
-    public bool isMultiShotActive = false;
-    public bool isRapidShotActive = false;
-    public bool isOverShieldActive = false;
-    public bool isEvolved = false;
-
-    public Ship(
-        bool shielded = false,
-        bool isMultiShotActive = false,
-        bool isRapidShotActive = false,
-        bool isOverShieldActive = false,
-        bool isEvolved = false
-    )
-    {
-        this.shielded = shielded;
-        this.isMultiShotActive = isMultiShotActive;
-        this.isRapidShotActive = isRapidShotActive;
-        this.isOverShieldActive = isOverShieldActive;
-        this.isEvolved = isEvolved;   
-    }
-
+    [HideInInspector] public bool shielded = false;
+    [HideInInspector] public bool isMultiShotActive = false;
+    [HideInInspector] public bool isRapidShotActive = false;
+    [HideInInspector] public bool isOverShieldActive = false;
+    [HideInInspector] public bool isEvolved = false;
+    
     // getter
     public int GetHP() { return hp; }
     public float GetAttackSpeed()

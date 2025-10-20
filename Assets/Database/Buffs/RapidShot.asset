@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: RapidShot
   m_EditorClassIdentifier: 
   buffType: 1
+  buffStatus: 0
   icon: {fileID: 21300000, guid: 42c19d66057ae764a9c11c0d91654a77, type: 3}
   buffName: Rapid Shot
   description: Coldown time is reduced by half
+  buffActiveSfx: {fileID: 8300000, guid: fae69e17c6fb68d49b8d90dcc5f6dd0c, type: 3}
+  buffDeactiveSfx: {fileID: 0}
   buffScriptable: {fileID: 11400000, guid: a6fa3c946d34fab43871a4fa9f1e48ca, type: 2}

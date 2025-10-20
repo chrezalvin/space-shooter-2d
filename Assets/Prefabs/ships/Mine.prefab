@@ -305,6 +305,7 @@ GameObject:
   - component: {fileID: 8558786229557960191}
   - component: {fileID: 3369603434700559862}
   - component: {fileID: 8699368536660050811}
+  - component: {fileID: 8366245069799482876}
   m_Layer: 3
   m_Name: Mine
   m_TagString: Untagged
@@ -447,11 +448,19 @@ MonoBehaviour:
   - {fileID: 605209901930633379}
   - {fileID: 478107253272941000}
   - {fileID: 66496241085634324}
-  shootSfx: {fileID: 8300000, guid: 49041c87cfb9bba469b1a9025eb2282e, type: 3}
-  shootRelatedSfx: {fileID: 8300000, guid: fae69e17c6fb68d49b8d90dcc5f6dd0c, type: 3}
-  shieldUpSfx: {fileID: 8300000, guid: f28ed6925937ae141bb6e2d119082553, type: 3}
-  shieldDownSfx: {fileID: 8300000, guid: 03210ae8942886a4792fcaefed255671, type: 3}
-  evolutionSystem: {fileID: 11400000, guid: b70497afb8dc07b48b64506ff194c531, type: 2}
+  evolutionSystem: {fileID: 8366245069799482876}
+--- !u!114 &8366245069799482876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8558786229557960064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ca7117f70b4064d862c998c3ba21c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8558786230685488222
 GameObject:
   m_ObjectHideFlags: 0

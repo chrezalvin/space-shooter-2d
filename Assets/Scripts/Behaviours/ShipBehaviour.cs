@@ -1,17 +1,16 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipBehaviour : MonoBehaviour
 {
+    static public Action OnShoot;
+    static public Action OnEvolve;
+
     public GameObject bulletPrefab;
     public GameObject playerShield;
     public List<Transform> mainFirePoint;
     public List<Transform> secondaryFirePoint;
-
-    public AudioClip shootSfx;
-    public AudioClip shootRelatedSfx;
-    public AudioClip shieldUpSfx;
-    public AudioClip shieldDownSfx;
 
     protected Ship m_ship;
 
@@ -45,8 +44,7 @@ public class ShipBehaviour : MonoBehaviour
 
         Debug.Log("Shoot");
 
-        if (shootSfx && Camera.main)
-            AudioSource.PlayClipAtPoint(shootSfx, Camera.main.transform.position);
+        OnShoot?.Invoke();
 
         m_nextFireTime = m_ship.GetAttackSpeed();
     }
@@ -55,30 +53,20 @@ public class ShipBehaviour : MonoBehaviour
     {
         playerShield.SetActive(active);
         m_ship.shielded = active;
-
-        if (Camera.main)
-            AudioSource.PlayClipAtPoint(active ? shieldUpSfx : shieldDownSfx, Camera.main.transform.position);
     }
 
     public virtual void SetOverShield(bool active)
     {
         m_ship.isOverShieldActive = active;
-
-        if (Camera.main)
-            AudioSource.PlayClipAtPoint(active ? shieldUpSfx : shieldDownSfx, Camera.main.transform.position);
     }
 
     public virtual void ApplyMultiShot(bool active)
     {
-        if (active && Camera.main)
-            AudioSource.PlayClipAtPoint(shootRelatedSfx, Camera.main.transform.position);
         m_ship.isMultiShotActive = active;
     }
 
     public virtual void ApplyRapidShot(bool active)
     {
-        if (active && Camera.main)
-            AudioSource.PlayClipAtPoint(shootRelatedSfx, Camera.main.transform.position);
         m_ship.isRapidShotActive = active;
     }
 
@@ -86,6 +74,7 @@ public class ShipBehaviour : MonoBehaviour
     public virtual void ApplyEvolve(BuffManager buffManager, BuffDatabase buffDatabase)
     {
         m_ship.isEvolved = true;
+        OnEvolve?.Invoke();
     }
 
     public Ship GetShip() { return m_ship; }

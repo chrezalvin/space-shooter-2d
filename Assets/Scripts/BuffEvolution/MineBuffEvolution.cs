@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "MineBuffEvolution", menuName = "BuffEvolution/MineBuffEvolution")]
 public class MineBuffEvolution : EvolutionSystem
 {
     private BuffManager m_buffManager;
@@ -43,5 +38,15 @@ public class MineBuffEvolution : EvolutionSystem
         }
 
         s_isHandlingBuff = false;
+    }
+
+    public override void OnDestroy()
+    {
+        BuffManager.OnBuffAdded -= HandleBuffAddedMine;
+    }
+
+    public override void OnDisable()
+    {
+        BuffManager.OnBuffAdded -= HandleBuffAddedMine;
     }
 }

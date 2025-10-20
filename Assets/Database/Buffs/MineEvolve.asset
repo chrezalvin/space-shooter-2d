@@ -17,5 +17,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4108b28314e62494aa3e703202a6cf42, type: 3}
   buffName: Shield Upgrade
   description: (Evolve) Whenever you gain Shielded, also gain temporary Over Shield.
-    If you already Shielded, gain permanent Over Shield
+    If you already Shielded, double the Over Shield duration
+  buffActiveSfx: {fileID: 0}
+  buffDeactiveSfx: {fileID: 0}
   buffScriptable: {fileID: 0}

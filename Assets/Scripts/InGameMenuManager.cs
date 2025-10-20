@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class InGameMenuManager : MonoBehaviour
 {
+    public static Action<bool> OnPauseMenuToggled;
+
     public GameObject pauseMenu;
     public GameObject gameOverMenu;
-
-    public AudioClip togglePauseMenuSfx;
 
     public void OpenPauseMenu()
     {
@@ -20,8 +21,8 @@ public class InGameMenuManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainMenu") return;
 
         pauseMenu.SetActive(true);
-        if (togglePauseMenuSfx != null)
-            AudioSource.PlayClipAtPoint(togglePauseMenuSfx, Camera.main.transform.position);
+
+        OnPauseMenuToggled?.Invoke(true);
         Time.timeScale = 0f; // Pause the game
     }
 

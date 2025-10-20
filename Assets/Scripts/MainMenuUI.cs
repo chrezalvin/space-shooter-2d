@@ -7,63 +7,104 @@ using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
+    public ShipDatabase shipDatabase;
     public float fadeDuration = .5f;
 
-    // uses mask image to fade in and out effect
-    public RectMask2D maskImg;
+    public Canvas canvas;
+    public GameObject chooseShipMenuPrefab;
+    public GameObject buffInfoPanelPrefab;
+    public GameObject transitionScreenPrefab;
 
     public TextMeshProUGUI versionText;
 
-    public GameObject chooseShipMenu;
+    private GameObject m_buffInfoPanel;
+    private GameObject m_chooseShipMenu;
 
-    private float m_currentMaskFadeLeft;
+    private Stack<GameObject> m_breadcrumb = new Stack<GameObject>();
+
+    private BuffInfoManager m_buffInfoManager;
+    private ChooseShipMenuManager m_chooseShipMenuManager;
+    private TransitionScreenBehaviour m_transitionScreenBehaviour;
+
+    void Start()
+    {
+        m_chooseShipMenu = Instantiate(chooseShipMenuPrefab, canvas.transform);
+        if (m_chooseShipMenu.TryGetComponent<ChooseShipMenuManager>(out m_chooseShipMenuManager))
+        {
+            m_chooseShipMenuManager.Init(CloseCurrentMenu, OpenBuffInfoPanel, OnShipSelected);
+            m_chooseShipMenu.SetActive(false);
+        }
+        
+        m_buffInfoPanel = Instantiate(buffInfoPanelPrefab, canvas.transform);
+        if (m_buffInfoPanel.TryGetComponent<BuffInfoManager>(out m_buffInfoManager))
+        {
+            m_buffInfoManager.Init(CloseCurrentMenu);
+            m_buffInfoPanel.SetActive(false);
+        }
+
+        versionText.text = "version: " + Application.version;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && m_breadcrumb.Count > 0)
+            CloseCurrentMenu();
+    }
 
     public void LoadBattleScene()
     {
-        StartCoroutine(FadeAndLoadScene("BattleScene"));
+        GameObject transitionScreenObj = Instantiate(transitionScreenPrefab, canvas.transform);
+        if (transitionScreenObj.TryGetComponent<TransitionScreenBehaviour>(out m_transitionScreenBehaviour))
+        {
+            m_transitionScreenBehaviour.TransitionScreen(fadeDuration, () => {
+                SceneManager.LoadScene("BattleScene");
+            });
+            
+        }
     }
 
     public void QuitGame()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
+    }
+
+    public void CloseCurrentMenu()
+    {
+        if (m_breadcrumb.Count > 0)
+        {
+            GameObject topMenu = m_breadcrumb.Pop();
+            topMenu.SetActive(false);
+        }
     }
 
     public void OpenChooseShipMenu()
     {
         // open choose ship menu
-        if (chooseShipMenu)
-            chooseShipMenu.gameObject.SetActive(true);
-    }
-
-    private IEnumerator FadeAndLoadScene(string sceneName)
-    {
-        yield return StartCoroutine(Fade(m_currentMaskFadeLeft, 0f));
-
-        SceneManager.LoadScene(sceneName);
-    }
-
-    private IEnumerator Fade(float startPadLeft, float endPadLeft)
-    {
-        float time = 0f;
-
-        while (time < fadeDuration)
+        if (m_chooseShipMenu)
         {
-            float t = time / fadeDuration;
-            float padLeft = Mathf.Lerp(startPadLeft, endPadLeft, t);
-            maskImg.padding = new Vector4(padLeft, 0, 0, 0);
-
-            time += Time.deltaTime;
-            yield return null;
+            m_chooseShipMenu.SetActive(true);
+            m_chooseShipMenuManager.Set(shipDatabase);
+            m_breadcrumb.Push(m_chooseShipMenu);
         }
     }
 
-    void Start()
+    public void OnShipSelected(ShipEntry shipEntry)
     {
-        m_currentMaskFadeLeft = maskImg.padding.x;
-        versionText.text = "version: " + Application.version;
+        PlayerPrefs.SetString("SelectedShip", shipEntry.ship.GetShipName());
+        m_chooseShipMenuManager.Set(shipDatabase);
+    }
+
+    public void OpenBuffInfoPanel(Buff buff)
+    {
+        if (m_buffInfoPanel)
+        {
+            m_buffInfoPanel.SetActive(true);
+            m_buffInfoManager.Set(buff);
+            m_breadcrumb.Push(m_buffInfoPanel);
+        }
     }
 }
