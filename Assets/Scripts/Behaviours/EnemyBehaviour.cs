@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    public static Action OnEnemyDeath;
+
     public GameObject explosionPrefab;
-    public AudioClip explosionSfx;
 
     private Enemy m_enemy;
 
@@ -25,13 +27,10 @@ public class EnemyBehaviour : MonoBehaviour
         if (explosionPrefab != null)
         {
             GameObject explosion = Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
-            ExplosionBehaviour explosionScript = explosion.GetComponent<ExplosionBehaviour>();
-            if (explosionScript)
-                explosionScript.Init(m_enemy.size);
+            explosion.transform.localScale = new Vector3(m_enemy.size, m_enemy.size, 1f);
         }
 
-        if (explosionSfx != null)
-            AudioSource.PlayClipAtPoint(explosionSfx, Camera.main.transform.position);
+        OnEnemyDeath?.Invoke();
 
         Destroy(this.gameObject);
     }

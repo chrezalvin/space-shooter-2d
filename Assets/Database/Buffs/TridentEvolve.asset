@@ -16,5 +16,7 @@ MonoBehaviour:
   buffStatus: 1
   icon: {fileID: 21300000, guid: 6ba70af57348a794a98b40781e629fd5, type: 3}
   buffName: Piercing Shot
-  description: (Evolve) Your bullet will penetrate once against enemy
+  description: (Evolve) Main bullet will penetrate against enemy once
+  buffActiveSfx: {fileID: 0}
+  buffDeactiveSfx: {fileID: 0}
   buffScriptable: {fileID: 0}

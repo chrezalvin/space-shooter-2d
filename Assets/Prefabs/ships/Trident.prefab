@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 8558786229557960191}
   - component: {fileID: 3135883907587822288}
   - component: {fileID: 4750125105593840356}
+  - component: {fileID: 4725685121575950749}
   m_Layer: 3
   m_Name: Trident
   m_TagString: Untagged
@@ -339,12 +340,20 @@ MonoBehaviour:
   secondaryFirePoint:
   - {fileID: 7846513113500152975}
   - {fileID: 8384694389897567505}
-  shootSfx: {fileID: 8300000, guid: 49041c87cfb9bba469b1a9025eb2282e, type: 3}
-  shootRelatedSfx: {fileID: 8300000, guid: fae69e17c6fb68d49b8d90dcc5f6dd0c, type: 3}
-  shieldUpSfx: {fileID: 8300000, guid: f28ed6925937ae141bb6e2d119082553, type: 3}
-  shieldDownSfx: {fileID: 8300000, guid: 03210ae8942886a4792fcaefed255671, type: 3}
   piercingBulletPrefab: {fileID: 2581183576368071784, guid: d98db1ec95480224ebb6cb041923d0b3, type: 3}
-  evolutionSystem: {fileID: 11400000, guid: c86b0e05df81e8540885d4ed90ac8fd8, type: 2}
+  evolutionSystem: {fileID: 4725685121575950749}
+--- !u!114 &4725685121575950749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8558786229557960064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f64e4a313e14fc44b146a674a8830ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8558786230685488222
 GameObject:
   m_ObjectHideFlags: 0

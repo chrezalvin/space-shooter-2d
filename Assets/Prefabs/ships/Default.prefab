@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 8558786229557960188}
   - component: {fileID: 8558786229557960191}
   - component: {fileID: 9029835206422463984}
+  - component: {fileID: 8958129310926306224}
   m_Layer: 3
   m_Name: Default
   m_TagString: Untagged
@@ -302,11 +303,19 @@ MonoBehaviour:
   secondaryFirePoint:
   - {fileID: 4352242284491635729}
   - {fileID: 4635433530478683928}
-  shootSfx: {fileID: 8300000, guid: 49041c87cfb9bba469b1a9025eb2282e, type: 3}
-  shootRelatedSfx: {fileID: 8300000, guid: fae69e17c6fb68d49b8d90dcc5f6dd0c, type: 3}
-  shieldUpSfx: {fileID: 8300000, guid: f28ed6925937ae141bb6e2d119082553, type: 3}
-  shieldDownSfx: {fileID: 8300000, guid: 03210ae8942886a4792fcaefed255671, type: 3}
-  evolutionSystem: {fileID: 11400000, guid: 03cc80a7035492648852f1f9732a4031, type: 2}
+  evolutionSystem: {fileID: 8958129310926306224}
+--- !u!114 &8958129310926306224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8558786229557960064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838eba15bd826df44abbe0547cfdeee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8558786230685488222
 GameObject:
   m_ObjectHideFlags: 0

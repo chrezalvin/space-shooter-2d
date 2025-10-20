@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: MultiShot
   m_EditorClassIdentifier: 
   buffType: 2
+  buffStatus: 0
   icon: {fileID: 21300000, guid: e984855a38311e5459acc496c0ee5cbf, type: 3}
   buffName: Multi Shot
   description: Shoot multiple bullets per shot
+  buffActiveSfx: {fileID: 8300000, guid: fae69e17c6fb68d49b8d90dcc5f6dd0c, type: 3}
+  buffDeactiveSfx: {fileID: 0}
   buffScriptable: {fileID: 11400000, guid: 49c8d4f72df721c4188f957cc83d861f, type: 2}

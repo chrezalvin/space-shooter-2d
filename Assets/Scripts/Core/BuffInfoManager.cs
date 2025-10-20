@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,20 +7,21 @@ using UnityEngine.UI;
 
 public class BuffInfoManager : MonoBehaviour
 {
-    public GameObject buffInfoPanel;
     public TextMeshProUGUI buffName;
     public TextMeshProUGUI buffDesc;
 
+    public Button closeButton;
+
     public Image buffIcon;
 
-    void OnEnable()
-    {
-        ShipSelectionManager.OnBuffSelected += Set;        
-    }
+    private Action m_onCloseCallback;
 
-    void OnDisable()
+    public void Init(Action OnClose = null)
     {
-        ShipSelectionManager.OnBuffSelected -= Set;        
+        m_onCloseCallback = OnClose;
+        closeButton.onClick.RemoveAllListeners();
+
+        closeButton.onClick.AddListener(Close);
     }
 
     public void Set(Buff buff)
@@ -27,13 +29,10 @@ public class BuffInfoManager : MonoBehaviour
         buffName.text = buff.GetBuffName();
         buffDesc.text = buff.GetDescription();
         buffIcon.sprite = buff.GetIcon();
-
-        buffInfoPanel.SetActive(true);
     }
 
-    public void CloseUI()
+    public void Close()
     {
-        Debug.Log("Close buff info panel");
-        buffInfoPanel.SetActive(false);
+        m_onCloseCallback?.Invoke();
     }
 }

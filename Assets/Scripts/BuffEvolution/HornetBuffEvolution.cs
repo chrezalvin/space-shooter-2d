@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "HornetBuffEvolution", menuName = "BuffEvolution/HornetBuffEvolution")]
 public class HornetBuffEvolution : EvolutionSystem
 {
     private BuffManager m_buffManager;
@@ -38,5 +33,15 @@ public class HornetBuffEvolution : EvolutionSystem
         m_buffManager.AddBuff(m_buffDatabase.GetBuff(BuffType.RAPID_SHOT), 5f);
 
         s_isHandlingBuff = false;
+    }
+
+    public override void OnDestroy()
+    {
+        BuffManager.OnBuffAdded -= HandleBuffAddedHornet;
+    }
+
+    public override void OnDisable()
+    {
+        BuffManager.OnBuffAdded -= HandleBuffAddedHornet;
     }
 }

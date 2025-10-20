@@ -16,5 +16,7 @@ MonoBehaviour:
   buffStatus: 1
   icon: {fileID: 21300000, guid: 8751620e0f0195e44a57388f14ea0a97, type: 3}
   buffName: Time Bubble
-  description: (Evolve)  All buff duration are doubled
+  description: (Evolve) All buff duration are doubled
+  buffActiveSfx: {fileID: 0}
+  buffDeactiveSfx: {fileID: 0}
   buffScriptable: {fileID: 0}

@@ -9,6 +9,6 @@ public class HornetShipBehaviour : ShipBehaviour
     public override void ApplyEvolve(BuffManager buffManager, BuffDatabase buffDatabase)
     {
         evolutionSystem.Evolve(buffManager, buffDatabase);
-        m_ship.isEvolved = true;
+        base.ApplyEvolve(buffManager, buffDatabase);
     }
 }

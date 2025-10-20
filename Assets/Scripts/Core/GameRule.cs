@@ -1,19 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class GameRule : MonoBehaviour
 {
-    public int startingDifficultyMultiplier = 1;
     public static Action<int> OnHPChanged;
+
+    public int difficultyIncreaseScoreTreshold = 200;
+
+    [Range(1.0f, 5.0f), Header("Difficulty Growth Rate"), Tooltip("Higher value means faster difficulty growth")]
+    public float difficultyGrowthRate = 1.2f;
+
+    [Range(1, 3), Tooltip("Higher value means more difficult game")]
+    public float difficultyIncreaseFactor = 1.5f;
 
     public int minScoreToEvolve = 300;
 
-    // null if not mobile
-    public JoyStickController joyStickController = null;
-    public EventTrigger shootBtn = null;
+    public MovementBehaviour movementBehaviour;
 
     public BuffDatabase buffDatabase;
     public ShipDatabase shipDatabase;
@@ -32,6 +38,16 @@ public class GameRule : MonoBehaviour
     private PlayerBehaviour m_playerBehaviour;
 
     private int m_currentHP;
+
+    private int m_difficultyMultiplier = 1;
+
+    private float m_enemyMinSpeedConstraint;
+    private float m_enemyMaxSpeedConstraint;
+    private float m_enemyMinSizeConstraint;
+    private float m_enemyMaxSizeConstraint;
+    private int m_enemyMinSpawnCountConstraint;
+    private int m_enemyMaxSpawnCountConstraint;
+    private float m_enemySpawnIntervalConstraint;
 
     private void OnEnable()
     {
@@ -54,9 +70,34 @@ public class GameRule : MonoBehaviour
         if (newScore > minScoreToEvolve && !m_ship.isEvolved)
             m_playerBehaviour.GetShipBehaviour().ApplyEvolve(buffManager, buffDatabase);
 
-        // increase difficulty multiplier every 300 score
-        int newDifficultyMultiplier = (newScore / 300) + 1;
-        enemySpawnManager.SetDifficultyMultiplier(newDifficultyMultiplier);
+        // triggered every treshold
+        if (Mathf.FloorToInt(newScore / difficultyIncreaseScoreTreshold) > m_difficultyMultiplier)
+        {
+            // Debug.Log("Increasing difficulty multiplier.");
+            m_difficultyMultiplier += 1;
+
+            // // use natural logarithmic scale to increase difficulty
+            AdjustDifficulty(m_difficultyMultiplier);
+        }
+
+    }
+
+    private void AdjustDifficulty(int difficultyMultiplier)
+    {
+        float increaseFactor = 1 + (difficultyIncreaseFactor - 1) * (Mathf.Log(difficultyMultiplier + 1, 2.7182818f) / ((5f / difficultyGrowthRate) + Mathf.Log(difficultyMultiplier + 1, 2.7182818f)));
+
+        // max is double the constraint valuer
+
+        enemySpawnManager.baseMaxEnemySize = m_enemyMaxSizeConstraint * increaseFactor;
+        enemySpawnManager.baseMinEnemySize = m_enemyMinSizeConstraint * increaseFactor;
+
+        enemySpawnManager.baseMaxEnemySpeed = m_enemyMaxSpeedConstraint * increaseFactor;
+        enemySpawnManager.baseMinEnemySpeed = m_enemyMinSpeedConstraint * increaseFactor;
+
+        enemySpawnManager.baseMaxSpawnCount = Mathf.CeilToInt(m_enemyMaxSpawnCountConstraint * increaseFactor);
+        enemySpawnManager.baseMinSpawnCount = Mathf.CeilToInt(m_enemyMinSpawnCountConstraint * increaseFactor);
+
+        enemySpawnManager.baseSpawnInterval = m_enemySpawnIntervalConstraint / increaseFactor;
     }
 
     private void HandleBuffCollected(BuffBehaviour buffBehaviour)
@@ -85,7 +126,7 @@ public class GameRule : MonoBehaviour
         if (!m_ship.shielded)
         {
             m_currentHP -= 1;
-            inGameUIManager.UpdateHPBar(m_currentHP);
+            OnHPChanged?.Invoke(m_currentHP);
             m_playerBehaviour.ApplyKnockback(enemyBehaviour.transform.position);
         }
         else
@@ -138,16 +179,7 @@ public class GameRule : MonoBehaviour
 
         GameObject shipObject = Instantiate(m_shipPrefab, spawnPosition, Quaternion.identity);
 
-        // attach PlayerBehaviour to shipObject
-        if(joyStickController && shootBtn)
-        {
-            m_playerBehaviour = shipObject.AddComponent<MobilePlayerBehaviour>();
-            (m_playerBehaviour as MobilePlayerBehaviour).joyStickController = joyStickController;
-            (m_playerBehaviour as MobilePlayerBehaviour).shootBtn = shootBtn;   
-        }
-        else
-            m_playerBehaviour = shipObject.AddComponent<PlayerBehaviour>();
-        // cast to MobilePlayerBehaviour to assign joystick controller
+        m_playerBehaviour = shipObject.AddComponent<PlayerBehaviour>();
 
         if (m_ship == null || m_playerBehaviour == null)
         {
@@ -156,8 +188,16 @@ public class GameRule : MonoBehaviour
         }
 
         m_currentHP = m_ship.GetHP();
-        m_playerBehaviour.Init(mainCamera, m_ship);
+        m_playerBehaviour.Init(mainCamera, m_ship, movementBehaviour);
         inGameUIManager.Init(m_currentHP, 0);
         buffManager.Init(m_playerBehaviour);
+
+        m_enemyMinSpeedConstraint = enemySpawnManager.baseMinEnemySpeed;
+        m_enemyMaxSpeedConstraint = enemySpawnManager.baseMaxEnemySpeed;
+        m_enemyMinSizeConstraint = enemySpawnManager.baseMinEnemySize;
+        m_enemyMaxSizeConstraint = enemySpawnManager.baseMaxEnemySize;
+        m_enemyMinSpawnCountConstraint = enemySpawnManager.baseMinSpawnCount;
+        m_enemyMaxSpawnCountConstraint = enemySpawnManager.baseMaxSpawnCount;
+        m_enemySpawnIntervalConstraint = enemySpawnManager.baseSpawnInterval;
     }
 }

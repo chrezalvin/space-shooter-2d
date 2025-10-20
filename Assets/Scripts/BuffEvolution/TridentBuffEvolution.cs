@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "TridentBuffEvolution", menuName = "BuffEvolution/TridentBuffEvolution")]
 public class TridentBuffEvolution : EvolutionSystem
 {
     private BuffManager m_buffManager;
@@ -10,7 +5,6 @@ public class TridentBuffEvolution : EvolutionSystem
 
     public override void Evolve(BuffManager buffManager, BuffDatabase buffDatabase)
     {
-
         m_buffManager = buffManager;
         m_buffDatabase = buffDatabase;
 
@@ -27,5 +21,15 @@ public class TridentBuffEvolution : EvolutionSystem
     private void HandleBuffAddedTrident(ActiveBuff activeBuff)
     {
         return;
+    }
+
+    public override void OnDestroy()
+    {
+        BuffManager.OnBuffAdded -= HandleBuffAddedTrident;
+    }
+
+    public override void OnDisable()
+    {
+        BuffManager.OnBuffAdded -= HandleBuffAddedTrident;
     }
 }
